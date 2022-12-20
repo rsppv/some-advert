@@ -19,7 +19,18 @@ namespace SomeAdvert.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            
+            services.AddCognitoIdentity(options =>
+            {
+                options.Password = new PasswordOptions()
+                {
+                    RequiredLength = 6,
+                    RequireDigit = true,
+                    RequireLowercase = false,
+                    RequireUppercase = false,
+                    RequiredUniqueChars = 0,
+                    RequireNonAlphanumeric = false,
+                };
+            });
             services.AddControllersWithViews();
         }
 
@@ -41,7 +52,7 @@ namespace SomeAdvert.Web
             app.UseStaticFiles();
             app.UseRouting();
             
-            
+            app.UseAuthentication();
             app.UseAuthorization();
             
             app.UseEndpoints(endpoints =>
