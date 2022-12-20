@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using SomeAdvert.Web.Models;
+using SomeAdvert.Web.Models.Accounts;
 
 namespace SomeAdvert.Web.Controllers
 {
@@ -27,11 +27,12 @@ namespace SomeAdvert.Web.Controllers
             ILogger<AccountsController> logger)
         {
             _signInManager = signInManager ?? throw new ArgumentNullException(nameof(signInManager));
-            _userManager = (userManager as CognitoUserManager<CognitoUser>) ?? throw new ArgumentNullException(nameof(userManager));
+            _userManager = (userManager as CognitoUserManager<CognitoUser>) ??
+                           throw new ArgumentNullException(nameof(userManager));
             _userPool = userPool ?? throw new ArgumentNullException(nameof(userPool));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
-        
+
         public async Task<IActionResult> Signup()
         {
             return await Task.FromResult<IActionResult>(View(new SignupViewModel()));
@@ -58,6 +59,7 @@ namespace SomeAdvert.Web.Controllers
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
             }
+
             return View(model);
         }
 
@@ -65,7 +67,7 @@ namespace SomeAdvert.Web.Controllers
         {
             return await Task.FromResult<IActionResult>(View(new ConfirmAccountViewModel()));
         }
-        
+
         [HttpPost]
         public async Task<IActionResult> Confirm(ConfirmAccountViewModel model)
         {
@@ -97,6 +99,42 @@ namespace SomeAdvert.Web.Controllers
             }
 
             return View(model);
+        }
+
+        public async Task<IActionResult> Login()
+        {
+            return View(new LoginViewModel());
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Login(LoginViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await _signInManager.PasswordSignInAsync(
+                    model.Email,
+                    model.Password,
+                    model.RememberMe,
+                    lockoutOnFailure: false);
+
+                if (!result.Succeeded)
+                {
+                    ModelState.AddModelError("LoginFailed",
+                        "Login failed. Make sure provided email and password are correct");
+                    return View(model);
+                }
+                _logger.LogInformation("User logged in");
+                return RedirectToAction("Index", "Home");
+            }
+
+            return View(model);
+        }
+
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+            _logger.LogInformation("User logged out");
+            return RedirectToAction("Index", "Home");
         }
     }
 }

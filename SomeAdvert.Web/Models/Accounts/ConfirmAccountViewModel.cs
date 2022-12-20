@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace SomeAdvert.Web.Models
+namespace SomeAdvert.Web.Models.Accounts
 {
     public class ConfirmAccountViewModel
     {
