@@ -136,5 +136,64 @@ namespace SomeAdvert.Web.Controllers
             _logger.LogInformation("User logged out");
             return RedirectToAction("Index", "Home");
         }
+
+        public async Task<IActionResult> ForgotPassword()
+        {
+            return View(new ForgotPasswordViewModel());
+        }
+        
+        [HttpPost]
+        public async Task<IActionResult> ForgotPassword(ForgotPasswordViewModel model)
+        {
+            if (!ModelState.IsValid) 
+            {
+                return View(model);
+            }
+
+            var user = await _userManager.FindByIdAsync(model.Email);
+            if (user == null || !(await _userManager.IsEmailConfirmedAsync(user)))
+            {
+                return RedirectToAction("ResetPassword");
+            }
+
+            await user.ForgotPasswordAsync();
+            return RedirectToAction("ResetPassword", new ForgotPasswordViewModel{ Email = model.Email });
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ResetPassword(ResetPasswordViewModel model)
+        {
+            return View(model);
+        }
+        
+        [HttpPost]
+        public async Task<IActionResult> PostResetPassword(ResetPasswordViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View("ResetPassword", model);
+            }
+
+            var user = await _userManager.FindByIdAsync(model.Email);
+            if (user == null)
+            {
+                ModelState.AddModelError("UserNotFound", "Unable to find user");
+                return View("ResetPassword", model);
+            }
+
+            var result = await _userManager.ResetPasswordAsync(user, model.ResetToken, model.Password);
+            if (result.Succeeded)
+            {
+                _logger.LogInformation($@"Password successfully reset for user '{model.Email}'");
+                return RedirectToAction("Login");
+            }
+
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError(string.Empty, error.Description);
+            }
+            
+            return View("ResetPassword", model);
+        }
     }
 }
