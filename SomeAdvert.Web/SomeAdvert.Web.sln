@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SomeAdvert.Web", "SomeAdver
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SomeAdvert.Contracts.Advert", "..\SomeAdvert.Contracts.Advert\SomeAdvert.Contracts.Advert\SomeAdvert.Contracts.Advert.csproj", "{D2110CD9-32EF-4FCE-A32F-EACBF04914E6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SomeAdvert.Api.Advert", "..\SomeAdvert.Api.Advert\SomeAdvert.Api.Advert.csproj", "{DF9703A6-575B-494E-83CC-6B105DB6B5FB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{D2110CD9-32EF-4FCE-A32F-EACBF04914E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D2110CD9-32EF-4FCE-A32F-EACBF04914E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D2110CD9-32EF-4FCE-A32F-EACBF04914E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF9703A6-575B-494E-83CC-6B105DB6B5FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF9703A6-575B-494E-83CC-6B105DB6B5FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF9703A6-575B-494E-83CC-6B105DB6B5FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF9703A6-575B-494E-83CC-6B105DB6B5FB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
