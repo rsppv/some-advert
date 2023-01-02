@@ -5,15 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SomeAdvert.Contracts.Advert\SomeAdvert.Contracts.Advert\SomeAdvert.Contracts.Advert.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="AWSSDK.DynamoDBv2" Version="3.7.101.16" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Controllers" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
+    <PackageReference Include="someadvert.contracts.advert" Version="1.0.0" />
   </ItemGroup>
 
 

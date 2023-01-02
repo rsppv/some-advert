@@ -49,9 +49,27 @@ namespace SomeAdvert.Api.Advert.Services
             return dbAdvert.Id;
         }
 
-        public Task Confirm(ConfirmationAdvertModel confirmation)
+        public async Task Confirm(ConfirmationAdvertModel confirmation)
         {
-            throw new NotImplementedException();
+            if (confirmation == null) throw new ArgumentNullException(nameof(confirmation));
+            
+            using var dbClient = new AmazonDynamoDBClient();
+            using var dbContext = new DynamoDBContext(dbClient);
+            var advert = await dbContext.LoadAsync<AdvertDbModel>(confirmation.AdvertId);
+            if (advert == null)
+            {
+                throw new AdvertNotFoundException($"Advert:`{confirmation.AdvertId}`");
+            }
+            
+            if (confirmation.Status == AdvertStatus.Active)
+            {
+                advert.Status = AdvertStatus.Active;
+                await dbContext.SaveAsync(advert);
+            }
+            else
+            {
+                await dbContext.DeleteAsync(advert);
+            }
         }
     }
 }

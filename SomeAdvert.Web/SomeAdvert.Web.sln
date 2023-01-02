@@ -2,7 +2,7 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SomeAdvert.Web", "SomeAdvert.Web.csproj", "{09DF6F2C-2FC0-4E97-8C6D-2F3ADE6B761E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SomeAdvert.Contracts.Advert", "..\SomeAdvert.Contracts.Advert\SomeAdvert.Contracts.Advert\SomeAdvert.Contracts.Advert.csproj", "{D2110CD9-32EF-4FCE-A32F-EACBF04914E6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SomeAdvert.Contracts.Advert", "..\SomeAdvert.Contracts.Advert\SomeAdvert.Contracts.Advert.csproj", "{D2110CD9-32EF-4FCE-A32F-EACBF04914E6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SomeAdvert.Api.Advert", "..\SomeAdvert.Api.Advert\SomeAdvert.Api.Advert.csproj", "{DF9703A6-575B-494E-83CC-6B105DB6B5FB}"
 EndProject
