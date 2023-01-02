@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DataModel;
 using SomeAdvert.Contracts.Advert;
 
@@ -29,15 +30,23 @@ namespace SomeAdvert.Api.Advert.Services
     
     public interface IAdvertStorage
     {
-        Task Add(AdvertModel advert);
+        Task<string> Add(AdvertModel advert);
         Task Confirm(ConfirmationAdvertModel confirmation);
     }
 
     public class DynamoDbAdvertStorage : IAdvertStorage
     {
-        public Task Add(AdvertModel advert)
+        public async Task<string> Add(AdvertModel advert)
         {
-            throw new NotImplementedException();
+            if (advert == null) throw new ArgumentNullException(nameof(advert));
+            
+            var dbAdvert = advert.ToDbModel();
+            
+            using var dbClient = new AmazonDynamoDBClient();
+            using var dbContext = new DynamoDBContext(dbClient);
+            await dbContext.SaveAsync(dbAdvert);
+            
+            return dbAdvert.Id;
         }
 
         public Task Confirm(ConfirmationAdvertModel confirmation)
