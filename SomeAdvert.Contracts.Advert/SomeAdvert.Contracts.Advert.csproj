@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.1</TargetFramework>
+        <ImplicitUsings>disable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <LangVersion>8</LangVersion>
+        <Title>SomeAdvert.Contracts.Advert</Title>
+        <Authors>Alex Raspopov</Authors>
+        <Copyright>None</Copyright>
+        <PackageProjectUrl>https://github.com/rsppv/some-advert</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/rsppv/some-advert</RepositoryUrl>
+    </PropertyGroup>
+
+</Project>
